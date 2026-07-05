@@ -20,7 +20,7 @@ public class OrmLearnApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        testAddCountry();
+        testUpdateCountry();
     }
 
     private void getCountryTest() {
@@ -50,6 +50,22 @@ public class OrmLearnApplication implements CommandLineRunner {
         try {
             Country addedCountry = countryService.findCountryByCode("NP");
             System.out.println("Added Country : " + addedCountry);
+        } catch (CountryNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("End");
+    }
+
+    private void testUpdateCountry() {
+
+        System.out.println("Start");
+
+        countryService.updateCountry("NP", "New Nepal");
+
+        try {
+            Country country = countryService.findCountryByCode("NP");
+            System.out.println("Updated Country : " + country);
         } catch (CountryNotFoundException e) {
             System.out.println(e.getMessage());
         }
