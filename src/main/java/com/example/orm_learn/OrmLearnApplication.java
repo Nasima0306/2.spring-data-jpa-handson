@@ -1,18 +1,24 @@
 package com.example.orm_learn;
 
+import com.example.orm_learn.Service.EmployeeService;
 import com.example.orm_learn.model.Country;
 import com.example.orm_learn.Service.CountryService;
 import com.example.orm_learn.exception.CountryNotFoundException;
+import com.example.orm_learn.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
 
 @SpringBootApplication
 public class OrmLearnApplication implements CommandLineRunner {
 
     @Autowired
     private CountryService countryService;
+    @Autowired
+    private EmployeeService employeeService;
 
     public static void main(String[] args) {
         SpringApplication.run(OrmLearnApplication.class, args);
@@ -20,7 +26,7 @@ public class OrmLearnApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        testDeleteCountry();
+        testGetAllPermanentEmployees();
     }
 
     private void getCountryTest() {
@@ -84,6 +90,18 @@ public class OrmLearnApplication implements CommandLineRunner {
         } catch (CountryNotFoundException e) {
             System.out.println("Country deleted successfully");
         }
+
+        System.out.println("End");
+    }
+    private void testGetAllPermanentEmployees() {
+
+        System.out.println("Start");
+
+//        EmployeeService employeeService = null;
+        List<Employee> employees =
+                employeeService.getAllPermanentEmployees();
+
+        employees.forEach(System.out::println);
 
         System.out.println("End");
     }
